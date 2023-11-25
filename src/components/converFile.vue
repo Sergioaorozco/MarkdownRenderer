@@ -43,7 +43,7 @@ export default {
       <div class="border border-slate-400 rounded-lg bg-white p-2 w-full outputText overflow-y-auto" readonly v-html="renderOutput()"></div>
     </div>
     <button @click="convertMarkDown" class="bg-orange-600 hover:bg-orange-700 text-slate-900 transition-colors duration-200 font-bold py-3 rounded-lg" :class="{'bg-slate-600/30 text-slate-400 pointer-events-none' : !isMDX}">{{!isMDX ?
-    'Disabled, first add some Markdown' : 'Parse Texts'}}</button>
+    'Disabled, first add some Markdown' : 'Convert to HTML'}}</button>
   </main>
 </template>
 s
