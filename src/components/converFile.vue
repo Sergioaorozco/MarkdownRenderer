@@ -10,9 +10,8 @@ export default {
     }
   },
   methods: {
-    filledInput(e) {
-      this.isMDX = e.target.value !== '' || e.target.value != null;
-      this.fileInit = e.target.value
+    checkButton() {
+      this.fileInit !== null ? this.isMDX = true : this.isMDX = false
     },
     renderOutput(){
       return this.fileOutput ? `<div class="outInfo">${this.fileOutput}</div>` : `<p>First Copy Something</p>`
@@ -28,8 +27,10 @@ export default {
       }
     },
   },
-  mounted(){
-    this.filledInput();
+  watch: {
+    fileInit(newValue){
+      (newValue === null || newValue === '') ? this.isMDX = false : this.isMDX = true;
+    }
   }
 }
 
@@ -40,12 +41,12 @@ export default {
     <h1 class="text-slate-500 text-4xl font-bold">Markdown to <span class="text-slate-100 italic">Formatted Text</span>
     </h1>
     <div class="flex gap-x-4 justify-center mt-5 h-96">
-      <textarea  @input="filledInput($event)" name="textInit" id="textInit" cols="30" rows="10" placeholder="Markdown text"
+      <textarea name="textInit" id="textInit" cols="30" rows="10" placeholder="Markdown text" v-model="fileInit"
         class="border bg-slate-200 border-slate-400 rounded-lg p-2 w-full"></textarea>
       <!-- <iframe id="outputText" class="border border-slate-400 rounded-lg bg-slate-200 p-2 w-full" readonly :srcdoc="fileOutput"></iframe> -->
       <div class="border border-slate-400 rounded-lg bg-white p-2 w-full outputText overflow-y-auto" readonly v-html="renderOutput()"></div>
     </div>
-    <button @click="convertMarkDown" class="bg-orange-600 hover:bg-orange-700 text-slate-900 transition-colors duration-200 font-bold py-3 rounded-lg" :class="{'bg-slate-600/30 text-slate-400 pointer-events-none' : !isMDX}">{{!isMDX ?
+    <button @click="convertMarkDown" class="bg-orange-600 hover:bg-orange-700 text-slate-900 transition-colors duration-200 font-bold py-3 rounded-lg" :class="{'bg-slate-600/30 text-white pointer-events-none' : !isMDX}">{{!isMDX ?
     'Disabled, first add some Markdown' : 'Convert to HTML'}}</button>
   </main>
 </template>
